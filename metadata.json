@@ -1,0 +1,6 @@
+{
+  "name": "TRACE",
+  "description": "Your life leaves patterns. An interactive digital-life story experience transforming raw digital receipts into connected moments, patterns, and chapters.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
