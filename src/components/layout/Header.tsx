@@ -1,11 +1,12 @@
 import React from 'react';
-import { Database, FileUp, Keyboard, Sparkles } from 'lucide-react';
+import { Database, Download, FileUp, Keyboard, Sparkles } from 'lucide-react';
 
 interface HeaderProps {
   activeTab: string;
   onSelectTab: (tab: string) => void;
   onOpenImportModal: () => void;
   onOpenShortcuts?: () => void;
+  onOpenExport?: () => void;
   validReceiptCount: number;
 }
 
@@ -14,6 +15,7 @@ export const Header: React.FC<HeaderProps> = ({
   onSelectTab,
   onOpenImportModal,
   onOpenShortcuts,
+  onOpenExport,
   validReceiptCount,
 }) => {
   return (
@@ -66,6 +68,19 @@ export const Header: React.FC<HeaderProps> = ({
             <FileUp className="h-3.5 w-3.5 text-amber-400" />
             <span className="hidden xs:inline">Datasets</span>
           </button>
+
+          {/* Export Story & Data button */}
+          {onOpenExport && (
+            <button
+              onClick={onOpenExport}
+              className="flex items-center gap-1.5 rounded-md border border-stone-800 bg-stone-900/80 px-2.5 py-1.5 text-xs font-medium text-stone-200 hover:border-amber-500/50 hover:text-amber-300 transition-all focus:outline-none"
+              title="Export Story as Markdown, JSON, or CSV"
+              aria-label="Export story report and data"
+            >
+              <Download className="h-3.5 w-3.5 text-stone-400" />
+              <span className="hidden sm:inline">Export</span>
+            </button>
+          )}
 
           {/* Keyboard shortcuts cheatsheet trigger */}
           {onOpenShortcuts && (

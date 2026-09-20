@@ -1,0 +1,17 @@
+{
+  "name": "TRACE — Your Life, In Receipts",
+  "short_name": "TRACE",
+  "description": "An interactive digital-life story experience transforming raw digital receipts into connected moments, patterns, and chapters.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c0a09",
+  "theme_color": "#0c0a09",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
