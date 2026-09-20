@@ -1,13 +1,35 @@
 {
-  "name": "react-example",
+  "name": "trace-life-in-receipts",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "TRACE — An interactive frontend-only digital life story that transforms receipts, listening history, transactions, patterns, and connections into meaningful stories.",
+  "license": "MIT",
+  "author": "gurupavithra2005",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gurupavithra2005/trace-life-in-receipts"
+  },
+  "keywords": [
+    "trace",
+    "digital-life",
+    "story-engine",
+    "receipts",
+    "spotify",
+    "life-patterns",
+    "frontend-arena",
+    "faie-audit",
+    "react-19",
+    "vite",
+    "tailwind-css"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "lint": "tsc --noEmit"
   },
   "dependencies": {
@@ -23,6 +45,7 @@
     "motion": "^12.23.24"
   },
   "devDependencies": {
+    "@types/express": "^4.17.21",
     "@types/node": "^22.14.0",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
@@ -31,6 +54,6 @@
     "tailwindcss": "^4.3.3",
     "tsx": "^4.21.0",
     "typescript": "^7.0.2",
-    "@types/express": "^4.17.21"
+    "vitest": "^5.0.1"
   }
 }

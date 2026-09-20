@@ -1,10 +1,11 @@
 import React from 'react';
-import { Database, FileUp, Sparkles } from 'lucide-react';
+import { Database, FileUp, Keyboard, Sparkles } from 'lucide-react';
 
 interface HeaderProps {
   activeTab: string;
   onSelectTab: (tab: string) => void;
   onOpenImportModal: () => void;
+  onOpenShortcuts?: () => void;
   validReceiptCount: number;
 }
 
@@ -12,6 +13,7 @@ export const Header: React.FC<HeaderProps> = ({
   activeTab,
   onSelectTab,
   onOpenImportModal,
+  onOpenShortcuts,
   validReceiptCount,
 }) => {
   return (
@@ -64,6 +66,19 @@ export const Header: React.FC<HeaderProps> = ({
             <FileUp className="h-3.5 w-3.5 text-amber-400" />
             <span className="hidden xs:inline">Datasets</span>
           </button>
+
+          {/* Keyboard shortcuts cheatsheet trigger */}
+          {onOpenShortcuts && (
+            <button
+              onClick={onOpenShortcuts}
+              className="flex items-center gap-1 rounded-md border border-stone-800 bg-stone-900/80 px-2.5 py-1.5 text-xs font-medium text-stone-300 hover:text-stone-100 hover:border-stone-700 transition-all"
+              title="Keyboard Shortcuts (Press ?)"
+              aria-label="View keyboard shortcuts"
+            >
+              <Keyboard className="h-3.5 w-3.5 text-stone-400" />
+              <kbd className="hidden sm:inline font-mono text-[10px] text-stone-400 bg-stone-800 px-1 rounded">?</kbd>
+            </button>
+          )}
 
           {/* Hero Story Jump button */}
           <button

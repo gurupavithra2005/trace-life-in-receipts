@@ -88,3 +88,48 @@ export function safeCoarseLocation(city?: string, state?: string): { city?: stri
     safeArea,
   };
 }
+
+/**
+ * Mask raw credit card numbers to keep only last 4 digits
+ */
+export function sanitizeCardNumber(card: string | undefined): string {
+  if (!card) return '••••';
+  const clean = String(card).replace(/\s+/g, '');
+  if (clean.length <= 4) return `•••• ${clean}`;
+  return `•••• ${clean.slice(-4)}`;
+}
+
+/**
+ * Mask email addresses safely (e.g., testuser@gmail.com -> t••••••r@gmail.com)
+ */
+export function sanitizeEmail(email: string | undefined): string {
+  if (!email) return '••••@••••.com';
+  const parts = email.split('@');
+  if (parts.length !== 2) return '••••@••••.com';
+  const user = parts[0];
+  const domain = parts[1];
+  if (user.length <= 2) return `${user[0]}•@${domain}`;
+  const masked = user[0] + '•'.repeat(Math.max(1, user.length - 2)) + user[user.length - 1];
+  return `${masked}@${domain}`;
+}
+
+/**
+ * Mask personal names safely (e.g., Johnathan Doe -> J•••••••••e)
+ */
+export function sanitizeName(name: string | undefined): string {
+  if (!name) return 'Anonymous';
+  const clean = name.trim();
+  if (clean.length <= 2) return clean;
+  return clean[0] + '•'.repeat(Math.max(1, clean.length - 2)) + clean[clean.length - 1];
+}
+
+/**
+ * General mask for any sensitive identifier string
+ */
+export function maskSensitiveString(str: string | undefined): string {
+  if (!str) return '••••';
+  const s = String(str).trim();
+  if (s.length <= 4) return '•••• ' + s;
+  return '•••• ' + s.slice(-4);
+}
+

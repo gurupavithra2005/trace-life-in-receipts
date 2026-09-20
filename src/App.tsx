@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { ShortcutsModal } from './components/common/ShortcutsModal';
 import { DataImportModal } from './components/layout/DataImportModal';
 import { DataQualityBanner } from './components/layout/DataQualityBanner';
 import { Footer } from './components/layout/Footer';
@@ -24,7 +25,57 @@ export default function App() {
 
   // Modal State
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+  const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
   const [selectedReceiptForModal, setSelectedReceiptForModal] = useState<Receipt | null>(null);
+
+  // Global Keyboard Shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignore if user is typing in an input/textarea
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement)?.tagName)) {
+        return;
+      }
+
+      if (e.key === 'Escape') {
+        setIsImportModalOpen(false);
+        setIsShortcutsOpen(false);
+        setSelectedReceiptForModal(null);
+        return;
+      }
+
+      if (e.key === '?' || e.key === 'h' || e.key === 'H') {
+        e.preventDefault();
+        setIsShortcutsOpen((prev) => !prev);
+        return;
+      }
+
+      if (e.key === 'i' || e.key === 'I') {
+        if (!selectedReceiptForModal && !isShortcutsOpen) {
+          e.preventDefault();
+          setIsImportModalOpen((prev) => !prev);
+        }
+        return;
+      }
+
+      const tabMap: Record<string, TabId> = {
+        '1': 'overview',
+        '2': 'life-map',
+        '3': 'timeline',
+        '4': 'receipts',
+        '5': 'connections',
+        '6': 'patterns',
+        '7': 'chapters',
+        '8': 'insights',
+      };
+
+      if (tabMap[e.key]) {
+        setActiveTab(tabMap[e.key]);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedReceiptForModal, isShortcutsOpen]);
 
   // Map state
   const [selectedReceiptOnMap, setSelectedReceiptOnMap] = useState<Receipt | null>(null);
@@ -107,6 +158,7 @@ export default function App() {
         activeTab={activeTab}
         onSelectTab={(tab) => setActiveTab(tab as TabId)}
         onOpenImportModal={() => setIsImportModalOpen(true)}
+        onOpenShortcuts={() => setIsShortcutsOpen(true)}
         validReceiptCount={receipts.length}
       />
 
@@ -227,6 +279,11 @@ export default function App() {
         onClose={() => setSelectedReceiptForModal(null)}
         connectedReceipts={connectedReceiptsForModal}
         onSelectConnectedReceipt={setSelectedReceiptForModal}
+      />
+
+      <ShortcutsModal
+        isOpen={isShortcutsOpen}
+        onClose={() => setIsShortcutsOpen(false)}
       />
 
       {/* Footer */}

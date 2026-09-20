@@ -97,3 +97,9 @@ export function getTimeOfDayBucket(hour: number): 'Late Night' | 'Morning' | 'Af
   if (hour >= 12 && hour < 17) return 'Afternoon';
   return 'Evening';
 }
+
+export function formatYear(isoStr: string): string {
+  const y = getYearFromTimestamp(isoStr);
+  return y ? String(y) : '';
+}
+
